@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+        <%- include('head'); -%>
+
+        <body>
+                <div class="wrap">
+                        <div class="row">
+                                <a href="https://sih-kappa-vert.vercel.app/" class="back-button">&larr; Back</a>
+                        </div>
+                        <br />
+                        <div class="row title">Arogya Sahayak teleconsultation</div>
+
+                        <div class="row">
+                                <div id="channelbox" class="flex">
+                                        <span class="perma-placeholder">consultation/</span>
+                                        <input type="text" placeholder="channel-id" class="flex-1" />
+                                        <button onClick="onJoin()">Start</button>
+                                </div>
+                        </div>
+
+
+                        <script type="text/javascript">
+                                const inputElement = document.querySelector("#channelbox input");
+                                function onJoin() {
+                                        let channelId = document.querySelector("#channelbox input").value;
+                                        if (!channelId) channelId = Math.random().toString(36).substr(2, 6);
+
+                                        window.location.pathname = channelId;
+                                }
+
+                                inputElement.addEventListener("keypress", function (e) {
+                                        if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                onJoin();
+                                        }
+                                });
+
+                                (() => {
+                                        if ("serviceWorker" in navigator) {
+                                                navigator.serviceWorker.register("/sw.js");
+                                        }
+                                })();
+                        </script>
+
+                        <%- include('footer'); -%>
+                </div>
+        </body>
+</html>
